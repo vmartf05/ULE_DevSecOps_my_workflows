@@ -1,17 +1,20 @@
-# ULE_DevSecOps_my_workflows
-ULE_DevSecOps_my_workflows - Lab 2: "CI/CD with Act"
+# ULE_DevSecOps_my_workflows - Lab 2: "CI/CD with Act"
 
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Working with Act](#working-with-act)
 3. [Running Workflows with Act](#running-workflows-with-act)
 4. [Flags of Act](#flags-of-act)
-5. [Use Cases](#use-cases)
-6. [Conclusion](#conclusion)
-7. [License](#license)
+5. [Conclusion](#conclusion)
+6. [License](#license)
 
 ## 1. Introduction
-The aim of this repo is to demonstrate the setup and usage of the Act tool, which allows us to run GitHub Actions locally.
+
+The objective of this repository, which consists solely of this README, is to provide an overview of how to use Act to run GitHub workflows locally.
+
+In the context of DevSecOps, Act is a powerful tool that allows developers to quickly iterate on their workflow configurations by providing rapid feedback without needing to commit and push changes to GitHub.
+
+By emulating the GitHub environment, including environment variables and the filesystem, Act enables the local execution of workflows, ensuring that continuous integration and continuous delivery and deployment (CI/CD) processes are seamless and efficient. This approach eliminates the need for redundant tools like `make` by leveraging the GitHub Actions defined in `.github/workflows/` for task management and automation.
 
 ## 2. Working with Act
 
@@ -161,11 +164,17 @@ Ensure that Docker is installed and running on your system, as Act uses Docker t
   When asked, select the Medium size image by using the arrow keys to highlight "Medium" and then pressing Enter.
   Expected output:
   ```plaintext
-  [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  [Test Example/my_test_job] ✅ Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   [Test Example/my_test_job] Cleaning up container for job my_test_job
-  [Test Example/my_test_job] 🏁 Job succeeded
+  [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 ## 4. Flags of Act
@@ -190,11 +199,17 @@ Here are some commonly used flags with Act:
   ```   
   Expected output:
   ```plaintext
-  [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  [Test Example/my_test_job] ✅ Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   [Test Example/my_test_job] Cleaning up container for job my_test_job
-  [Test Example/my_test_job] 🏁 Job succeeded
+  [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 - `-e, --eventpath`: Use a custom JSON file for the event payload.
@@ -219,14 +234,17 @@ Here are some commonly used flags with Act:
 
   Expected output:
   ```plaintext
-  [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  [Test Example/my_test_job]     🐳 docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
-  [Test Example/my_test_job]     🐳 docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job]     🐳 docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  [Test Example/my_test_job]     ✅ Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   [Test Example/my_test_job] Cleaning up container for job my_test_job
-  [Test Example/my_test_job] 🏁 Job succeeded
+  [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 - `-s, --secret`: Add secrets to the workflow.
@@ -241,14 +259,17 @@ Here are some commonly used flags with Act:
 
   Expected output:
   ```plaintext
-  [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  [Test Example/my_test_job]     🐳 docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
-  [Test Example/my_test_job]     🐳 docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job]     🐳 docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  [Test Example/my_test_job]     ✅ Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   [Test Example/my_test_job] Cleaning up container for job my_test_job
-  [Test Example/my_test_job] 🏁 Job succeeded
+  [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 - `-C, --directory`: Specify the working directory (default: `.`).
@@ -263,14 +284,17 @@ Here are some commonly used flags with Act:
 
   Expected output:
   ```plaintext
-  [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  [Test Example/my_test_job]     🐳 docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
-  [Test Example/my_test_job]     🐳 docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job]     🐳 docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  [Test Example/my_test_job]     ✅ Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   [Test Example/my_test_job] Cleaning up container for job my_test_job
-  [Test Example/my_test_job] 🏁 Job succeeded
+  [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 - `--dryrun`: Validate workflow without running containers.
@@ -280,19 +304,19 @@ Here are some commonly used flags with Act:
   To perform a dry run and specify the job, use the `-j` flag followed by the `--dryrun` flag:
 
   ```powershell
-  act --dryrun
+  act -j my_test_job --dryrun
   ```
 
   Expected output:
   ```plaintext
-  *DRYRUN* [Test Example/my_test_job] 🚀 Start image=catthehacker/ubuntu:act-latest
-  *DRYRUN* [Test Example/my_test_job]     🐳 docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
-  *DRYRUN* [Test Example/my_test_job]     🐳 docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  *DRYRUN* [Test Example/my_test_job]     🐳 docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
-  *DRYRUN* [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)" 
-  *DRYRUN* [Test Example/my_test_job]     ✅ Success - Main echo "Hello from Workflow :)"
+  *DRYRUN* [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  *DRYRUN* [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  *DRYRUN* [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  *DRYRUN* [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  *DRYRUN* [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  *DRYRUN* [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
   *DRYRUN* [Test Example/my_test_job] Cleaning up container for job my_test_job
-  *DRYRUN* [Test Example/my_test_job] 🏁 Job succeeded
+  *DRYRUN* [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
 - `-v, --verbose`: Enable verbose logging for detailed output.
@@ -307,7 +331,7 @@ Here are some commonly used flags with Act:
 
 - `--graph, -g`: Visualize workflows as a graph.
 
-  This flag helps to understand the structure and flow of your workflows by providing a visual representation.
+  This flag helps to understand the structure and flow of our workflows by providing a visual representation.
 
   To visualize the workflow and specify the job, use the `-j` flag followed by the `--graph` flag:
   
@@ -334,7 +358,7 @@ Here are some commonly used flags with Act:
 
   Expected output:
 
-  - Initialization:
+  - **Initialization**:
   ```json
   {
     "level": "info",
@@ -343,7 +367,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Job Start:
+  - **Job Start**:
   ```json
   {
     "dryrun": false,
@@ -356,7 +380,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Docker Pull and Run:
+  - **Docker Pull and Run**:
   ```json
   {
     "dryrun": false,
@@ -396,7 +420,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Step Execution:
+  - **Step Execution**:
   ```json  
   {
     "dryrun": false,
@@ -437,7 +461,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Success:
+  - **Success**:
   ```json
   {
     "dryrun": false,
@@ -454,7 +478,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Cleanup:
+  - **Cleanup**:
   ```json
   {
     "dryrun": false,
@@ -467,7 +491,7 @@ Here are some commonly used flags with Act:
   },
   ```
   
-  - Job Result:
+  - **Job Result**:
   ```json
   {
     "dryrun": false,
@@ -505,4 +529,188 @@ Here are some commonly used flags with Act:
   [Test Example/my_test_job] 🏁  Job succeeded
   ```
 
+### 4.3. Advanced Configuration
+
+#### Bind Working Directory
+
+Binding the working directory ensures that files are not copied into containers. Instead, it creates a bind mount, which directly links the files on your host machine with the container.
+
+This is particularly useful for reducing the overhead of copying files and ensuring that any changes made to the files are immediately reflected in the container.
+
+- **`-b, --bind`**: Bind the working directory to avoid copying files into containers.
+
+  ```powershell
+  act -j my_test_job -b
+  ```
   
+  This command will bind the working directory and run the `my_test_job job`, ensuring that any changes made to the files are immediately reflected in the container.
+  
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+ ```
+
+#### Manage Secrets and Variables
+
+Managing secrets and variables is crucial for securely passing sensitive data and configuration settings to your workflows.
+
+By default, Act allows us to specify secrets and variables directly within the command. However, for better security and maintainability, we can read them from a file.
+
+- **`--secret-file`**: Manage secrets by reading them from a file.
+
+  ```powershell
+  act -j my_test_job --secret-file .secrets
+  ```
+  
+  This command reads secrets from the `.secrets` file and runs the `my_test_job job`.
+  
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+  ```
+
+- **`--var-file`**: Manage variables by reading them from a file.
+
+  ```powershell
+  act -j my_test_job --var-file .vars
+  ```
+
+  This command reads variables from the `.vars` file and runs the `my_test_job job`.
+
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+  ```
+
+### 4.4. Optimizations
+
+#### Reuse Containers
+
+Reusing containers maintains state between runs, leading to faster execution times. This is especially useful for iterative development and testing.
+
+- **`-r, --reuse`**: Reuse containers by maintaining state between runs for faster execution.
+
+  ```powershell
+  act -j my_test_job -r
+  ```
+
+  This command will reuse the containers and run the `my_test_job job`, reducing the time required for subsequent runs.
+
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+  ```
+
+#### Skip Image Pull
+
+Skipping image pull uses locally cached images, avoiding the need to download them. This can significantly speed up the workflow execution if the images are already available locally.
+
+- **`--action-offline-mode`**: Skip image pull and use locally cached images to avoid downloading.
+
+  ```powershell
+  act -j my_test_job --action-offline-mode
+  ```
+
+  This command will use locally cached images and run the my_test_job job, speeding up the execution by avoiding image downloads.
+
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=false
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+  ```
+
+#### Watch for Changes
+
+Watching for changes automatically runs workflows when files change.
+
+This is useful for continuous development and testing, as it triggers the workflow whenever a change is detected.
+
+- **`-w, --watch`**: Watch for changes and automatically run workflows when files change.
+
+  ```powershell
+  act -j my_test_job -w
+  ```
+
+  This command will watch for changes and automatically run the `my_test_job` job whenever a file change is detected.
+
+  Expected output:
+  ```plaintext
+  [Test Example/my_test_job] 🚀  Start image=catthehacker/ubuntu:act-latest
+  [Test Example/my_test_job]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform= username= forcePull=true
+  [Test Example/my_test_job]   🐳  docker create image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker run image=catthehacker/ubuntu:act-latest platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+  [Test Example/my_test_job] ⭐ Run Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/0] user= workdir=
+  | Hello from Workflow :)
+  [Test Example/my_test_job]   ✅  Success - Main echo "Hello from Workflow :)"
+  [Test Example/my_test_job] Cleaning up container for job my_test_job
+  [Test Example/my_test_job] 🏁  Job succeeded
+  ```
+
+  When you use the `-w` flag, Act enters watch mode and keeps running in the background, waiting for any changes in the files. It will automatically rerun the workflow whenever a file change is detected.
+
+To exit watch mode and return to the command prompt, you can use `Ctrl+C`. This will stop Act from watching for changes and allow you to continue writing commands.
+
+## Conclusion
+
+Using Act to run GitHub workflows locally offers a robust solution for developers in the DevSecOps framework seeking rapid feedback and efficient task management.
+
+By utilizing Act, the necessity of committing and pushing changes to GitHub for testing is eliminated, as the local environment mirrors GitHub's environment.
+
+Additionally, Act can replace tools like `make` by executing tasks defined within GitHub Actions, thereby streamlining the development process and achieving the intended objective of effective workflow management and automation.
+  
+## License
+
+## License
+
+This project, ULE_DevOps_my_flask_app - Lab 2: "CI/CD with Act", is part of the course DevSecOps in Autonomous Systems, within the Master's program in Cybersecurity Research at the University of León (ULE). This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
